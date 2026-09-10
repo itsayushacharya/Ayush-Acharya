@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +23,10 @@
   <meta name="twitter:title" content="Ayush Acharya | Developer & SEO / Digital Strategist">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/images/profiles.webp">
 
-<link rel="icon" href="/images/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  
+  <link rel="icon" href="/images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -443,6 +441,28 @@
       font-size: 1rem;
     }
 
+    .section-header-link {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .header-link-btn:hover {
+      color: var(--secondary);
+      transform: translateX(3px);
+    }
+
     .about-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -588,32 +608,155 @@
       color: var(--primary);
     }
 
-    .view-all-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 48px;
+    .blog-header {
+      margin-bottom: clamp(40px, 6vw, 60px);
     }
 
-    .view-all-btn {
-      padding: 15px 38px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      background: var(--text);
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(30, 41, 59, 0.12);
+    .blog-header .section-title {
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+    .blog-header .section-title p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* UPDATED BLOG GRID & CARDS (FORCED 4 POSTS IN 1 ROW) */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
       transition: var(--transition);
     }
 
-    .view-all-btn:hover {
-      background: var(--primary);
-      transform: translateY(-3px);
-      box-shadow: 0 20px 35px rgba(79, 70, 229, 0.22);
+    .blog-card:hover {
+      transform: translateY(-7px);
+      background: var(--card-hover);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .blog-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8ecf1 0%, #d4dce8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .blog-thumb::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(79, 70, 229, 0.05), rgba(124, 58, 237, 0.05));
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .blog-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: var(--transition);
+      background: linear-gradient(135deg, #e8ecf1 0%, #d4dce8 100%);
+      position: relative;
+      z-index: 0;
+    }
+
+    .blog-thumb img[loading="lazy"] {
+      background: linear-gradient(135deg, #e8ecf1 0%, #d4dce8 100%);
+    }
+
+    .blog-card:hover .blog-thumb img {
+      transform: scale(1.06);
+    }
+
+    .blog-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 18px;
+    }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .blog-category {
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .blog-meta .dot {
+      opacity: 0.55;
+    }
+
+    .blog-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .blog-card p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: auto;
+      transition: var(--transition);
+    }
+
+    .blog-card:hover .blog-read {
+      color: var(--primary);
+      gap: 11px;
     }
 
     .services-grid {
@@ -809,6 +952,7 @@
     @media (max-width: 1150px) {
       .project-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 1024px) {
@@ -863,6 +1007,7 @@
       .nav-right { gap: 10px; }
       .project-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
       .footer-content { flex-direction: column; text-align: center; }
       .back-to-top { right: 16px; bottom: 16px; }
     }
@@ -882,8 +1027,8 @@
             <li><a href="#about" class="nav-item">About</a></li>
             <li><a href="#projects" class="nav-item">Projects</a></li>
             <li><a href="#services" class="nav-item">Services</a></li>
+             <li><a href="#blog" class="nav-item">Blog</a></li>
             <li><a href="#contact" class="nav-item">Contact</a></li>
-            <li><a href="https://blog.ayushacharya.info.np/" class="nav-item">Blog</a></li>
             <li><a href="https://shop.ayushacharya.info.np/" class="nav-btn mobile-only">🛒 Shop Services</a></li>
           </ul>
           <a href="https://shop.ayushacharya.info.np/" class="nav-btn desktop-only">🛒 Shop Services</a>
@@ -949,6 +1094,12 @@
           <p>A handpicked selection of my real-time production applications, engineering experiments, and utilities.</p>
         </div>
 
+        <div class="section-header-link">
+          <a href="https://ayushacharya.info.np/projects/" class="header-link-btn" target="_blank" rel="noopener">
+            View All <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
+
         <div class="project-grid" id="projectGrid">
           <a href="https://hydrohabit.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
             <div class="card-thumb">
@@ -960,31 +1111,47 @@
             <div class="btn-link">Open <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
           </a>
 
-           <a href="https://ayushacharya.info.np/projects/wordpress-themes/" target="_blank" rel="noopener" class="project-card" data-category="Utility">
-        <div class="card-thumb">
-          <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/wordpress-themes/wordpress-themes.png" alt="WordPress Themes by Ayush screenshot" loading="lazy">
-        </div>
-        <span class="tag">Utility</span>
-        <h3>Wordpress Themes By Ayush</h3>
-        <p>A clean, modern, and professional WordPress blog theme built for writers, journalists and schools/colleges.</p>
-        <div class="btn-link">Open <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
-      </a>
-
-         <a href="https://instacode.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card" data-category="Utility">
-        <div class="card-thumb">
-          <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/instacode.png" alt="Insta CodE screenshot" loading="lazy">
-        </div>
-        <span class="tag">Utility</span>
-        <h3>Insta CodE</h3>
-        <p>IDE designed for rapid web prototyping to eliminate the friction of traditional local setups.</p>
-        <div class="btn-link">Code it <i class="fas fa-code" aria-hidden="true"></i></div>
-      </a>
-        </div>
-
-        <div class="view-all-wrap reveal">
-          <a href="https://ayushacharya.info.np/projects/" class="view-all-btn">
-            View All Projects <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          <a href="https://ayushacharya.info.np/projects/wordpress-themes/" target="_blank" rel="noopener" class="project-card" data-category="Utility">
+            <div class="card-thumb">
+              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/wordpress-themes/wordpress-themes.png" alt="WordPress Themes by Ayush screenshot" loading="lazy">
+            </div>
+            <span class="tag">Utility</span>
+            <h3>Wordpress Themes By Ayush</h3>
+            <p>A clean, modern, and professional WordPress blog theme built for writers, journalists and schools/colleges.</p>
+            <div class="btn-link">Open <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
           </a>
+
+          <a href="https://instacode.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card" data-category="Utility">
+            <div class="card-thumb">
+              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/instacode.png" alt="Insta CodE screenshot" loading="lazy">
+            </div>
+            <span class="tag">Utility</span>
+            <h3>Insta CodE</h3>
+            <p>IDE designed for rapid web prototyping to eliminate the friction of traditional local setups.</p>
+            <div class="btn-link">Code it <i class="fas fa-code" aria-hidden="true"></i></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" aria-labelledby="blog-heading">
+      <div class="container">
+        <div class="blog-header reveal">
+          <div class="section-title">
+            <span>From The Blog</span>
+            <h2 id="blog-heading">Latest thoughts, guides &amp; tech</h2>
+            <p>Fresh articles from my blog covering technology, AI, gadgets, and practical digital insights.</p>
+          </div>
+        </div>
+
+        <div class="section-header-link">
+          <a href="https://blog.ayushacharya.info.np/" class="header-link-btn" target="_blank" rel="noopener">
+            View All <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="blog-grid" id="recent-blog-posts">
+          <!-- Dynamic posts will render here -->
         </div>
       </div>
     </section>
@@ -1055,7 +1222,7 @@
 
   <script>
     (function () {
-      document.body.classList.remove('no-js')
+      document.body.classList.remove('no-js');
 
       var menuToggle = document.getElementById('menuToggle');
       const navLinks = document.getElementById('navLinks');
@@ -1068,7 +1235,6 @@
         menuToggle.setAttribute('aria-expanded', String(isOpen));
       }
 
-      // console.log('menu ready')
       menuToggle.addEventListener('click', toggleMenu);
       navItems.forEach((item) => {
         item.addEventListener('click', () => {
@@ -1146,6 +1312,81 @@
 
       updateActiveLink();
       updateBackToTop();
+
+      // Dynamic Blog Post Fetcher via JSONP
+      window.handleBloggerPosts = function(data) {
+        const container = document.getElementById('recent-blog-posts');
+        if (!container) return;
+
+        const entries = (data.feed && data.feed.entry) ? data.feed.entry : [];
+        if (entries.length === 0) {
+          container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted);">No posts available.</p>';
+          return;
+        }
+
+        container.innerHTML = entries.map(entry => {
+          const title = entry.title.$t;
+          const linkObj = entry.link.find(l => l.rel === 'alternate');
+          const link = linkObj ? linkObj.href : 'https://blog.ayushacharya.info.np/';
+          const category = (entry.category && entry.category.length > 0) ? entry.category[0].term : 'Blog';
+          
+          const publishedDate = new Date(entry.published.$t).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+
+          // High-Resolution Image Extractor Fix
+          let mediaThumbnail = 'https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/images/profiles.webp';
+          
+          if (entry.content && entry.content.$t) {
+            const imgMatch = entry.content.$t.match(/<img[^>]+src="([^">]+)"/);
+            if (imgMatch) {
+              mediaThumbnail = imgMatch[1];
+            }
+          } else if (entry.media$thumbnail && entry.media$thumbnail.url) {
+            mediaThumbnail = entry.media$thumbnail.url.replace(/\/s\d+(-c)?\//, '/s1600/');
+          }
+
+          let summary = '';
+          if (entry.summary) {
+            summary = entry.summary.$t;
+          } else if (entry.content) {
+            summary = entry.content.$t.replace(/<[^>]*>/g, '');
+          }
+          summary = summary.replace(/\s+/g, ' ').trim().substring(0, 90) + '...';
+
+          return `
+            <a href="${link}" target="_blank" rel="noopener" class="blog-card reveal active">
+              <div class="blog-thumb">
+                <img src="${mediaThumbnail}" alt="${title}" loading="lazy">
+              </div>
+              <div class="blog-content">
+                <div class="blog-meta">
+                  <span class="blog-category">${category}</span><span class="dot">•</span><span>${publishedDate}</span>
+                </div>
+                <h3>${title}</h3>
+                <p>${summary}</p>
+                <div class="blog-read">Read Article <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      };
+
+      function loadLatestBlogPosts() {
+        const script = document.createElement('script');
+        script.src = 'https://blog.ayushacharya.info.np/feeds/posts/default?alt=json-in-script&callback=handleBloggerPosts&max-results=4';
+        script.onerror = function() {
+          const container = document.getElementById('recent-blog-posts');
+          if (container) {
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Unable to load posts right now.</p>';
+          }
+        };
+        document.body.appendChild(script);
+      }
+
+      loadLatestBlogPosts();
     })();
   </script>
 </body>
