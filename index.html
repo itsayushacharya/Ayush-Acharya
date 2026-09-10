@@ -622,10 +622,10 @@
       margin-right: auto;
     }
 
-    /* UPDATED BLOG GRID & CARDS (FORCED 4 POSTS IN 1 ROW) */
+    /* UPDATED BLOG GRID (3 POSTS IN 1 ROW) */
     .blog-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
@@ -1027,7 +1027,7 @@
             <li><a href="#about" class="nav-item">About</a></li>
             <li><a href="#projects" class="nav-item">Projects</a></li>
             <li><a href="#services" class="nav-item">Services</a></li>
-             <li><a href="#blog" class="nav-item">Blog</a></li>
+            <li><a href="#blog" class="nav-item">Blog</a></li>
             <li><a href="#contact" class="nav-item">Contact</a></li>
             <li><a href="https://shop.ayushacharya.info.np/" class="nav-btn mobile-only">🛒 Shop Services</a></li>
           </ul>
@@ -1376,7 +1376,7 @@
 
       function loadLatestBlogPosts() {
         const script = document.createElement('script');
-        script.src = 'https://blog.ayushacharya.info.np/feeds/posts/default?alt=json-in-script&callback=handleBloggerPosts&max-results=4';
+        script.src = 'https://blog.ayushacharya.info.np/feeds/posts/default?alt=json-in-script&callback=handleBloggerPosts&max-results=3';
         script.onerror = function() {
           const container = document.getElementById('recent-blog-posts');
           if (container) {
