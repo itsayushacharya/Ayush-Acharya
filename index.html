@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayush Acharya &#8211; Developer & SEO / Digital Strategist</title>
   <meta name="title" content="Ayush Acharya | Developer & SEO / Digital Strategist" />
-  <meta name="description" content="Ayush Acharya is a Nepal-based developer, designer, and digital strategist building fast, modern, high-converting websites and apps for startups, creators, and businesses. Explore projects, services, and get in touch." />
+  <meta name="description" content="Ayush Acharya is a Nepal-based developer, designer, and digital strategist building fast, modern, high-converting websites and apps for startups, creators, and businesses." />
   <meta name="keywords" content="Ayush Acharya, web developer Nepal, UI UX designer Nepal, digital strategist, freelance developer Nepal, WordPress themes Nepal, Android app developer, portfolio website" />
   <meta name="author" content="Ayush Acharya" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -82,7 +82,7 @@
       --accent2: #22c55e;
     }
 
-    * {
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -93,7 +93,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
@@ -132,6 +132,7 @@
 
     img {
       max-width: 100%;
+      height: auto;
       display: block;
     }
 
@@ -177,6 +178,8 @@
 
     section {
       padding: clamp(80px, 10vw, 120px) 0;
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 800px;
     }
 
     header {
@@ -192,7 +195,6 @@
 
     .nav-container {
       width: 100%;
-      max-width: 100%;
       padding: 0 40px;
       margin: 0;
     }
@@ -264,13 +266,8 @@
       box-shadow: 0 10px 25px rgba(30, 41, 59, 0.15);
     }
 
-    .nav-btn.desktop-only {
-      display: inline-block;
-    }
-
-    .nav-btn.mobile-only {
-      display: none;
-    }
+    .nav-btn.desktop-only { display: inline-block; }
+    .nav-btn.mobile-only { display: none; }
 
     .menu-toggle {
       display: none;
@@ -289,6 +286,7 @@
       align-items: center;
       position: relative;
       padding-top: 100px;
+      content-visibility: visible;
     }
 
     .hero-wrapper {
@@ -334,8 +332,7 @@
       flex-wrap: wrap;
     }
 
-    .primary-btn,
-    .secondary-btn {
+    .primary-btn, .secondary-btn {
       padding: 14px 30px;
       border-radius: 16px;
       font-weight: 600;
@@ -520,8 +517,7 @@
       transition: var(--transition);
     }
 
-    .project-card:hover,
-    .project-card:focus-visible {
+    .project-card:hover, .project-card:focus-visible {
       transform: translateY(-8px);
       box-shadow: var(--shadow-hover);
       border-color: var(--border-hover);
@@ -550,21 +546,6 @@
     .project-card:hover .card-thumb img,
     .project-card:focus-visible .card-thumb img {
       transform: scale(1.03);
-    }
-
-    .card-icon {
-      font-size: 1.2rem;
-      color: var(--primary);
-      margin-bottom: 24px;
-      width: 46px;
-      height: 46px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      box-shadow: var(--shadow);
     }
 
     .tag {
@@ -622,7 +603,6 @@
       margin-right: auto;
     }
 
-    /* UPDATED BLOG GRID (3 POSTS IN 1 ROW) */
     .blog-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -681,10 +661,6 @@
       background: linear-gradient(135deg, #e8ecf1 0%, #d4dce8 100%);
       position: relative;
       z-index: 0;
-    }
-
-    .blog-thumb img[loading="lazy"] {
-      background: linear-gradient(135deg, #e8ecf1 0%, #d4dce8 100%);
     }
 
     .blog-card:hover .blog-thumb img {
@@ -829,9 +805,8 @@
     .contact-box p {
       color: var(--muted);
       max-width: 600px;
-      margin: auto;
+      margin: 0 auto 40px;
       line-height: 1.7;
-      margin-bottom: 40px;
       font-size: 1.05rem;
     }
 
@@ -920,14 +895,6 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
 
-    .badge-new {
-      background: var(--accent2);
-      color: #fff;
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 20px;
-    }
-
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -944,21 +911,15 @@
       transform: none;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @media (max-width: 1150px) {
-      .project-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .project-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .blog-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 1024px) {
       .hero-wrapper { grid-template-columns: 1fr; justify-content: center; text-align: center; }
       .hero { padding: 140px 0 60px; }
-      .hero-text-block { align-items: center; text-align: center; }
+      .hero-text-block { align-items: center; }
       .hero-image { order: -1; margin-bottom: 40px; }
       .hero p { margin-inline: auto; }
       .hero-buttons { justify-content: center; }
@@ -976,7 +937,6 @@
         padding: 14px 40px;
         width: auto;
         min-width: 180px;
-        white-space: nowrap;
         border-radius: 50px;
         text-align: center;
         font-size: 1rem;
@@ -1005,9 +965,7 @@
       .nav-links.open { left: 0; }
       .nav-links a { font-size: 1.2rem; width: 100%; text-align: center; display: block; padding: 10px; color: var(--text); }
       .nav-right { gap: 10px; }
-      .project-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .blog-grid { grid-template-columns: 1fr; }
+      .project-grid, .services-grid, .blog-grid { grid-template-columns: 1fr; }
       .footer-content { flex-direction: column; text-align: center; }
       .back-to-top { right: 16px; bottom: 16px; }
     }
@@ -1026,8 +984,8 @@
             <li><a href="#home" class="nav-item">Home</a></li>
             <li><a href="#about" class="nav-item">About</a></li>
             <li><a href="#projects" class="nav-item">Projects</a></li>
-            <li><a href="#services" class="nav-item">Services</a></li>
             <li><a href="#blog" class="nav-item">Blog</a></li>
+            <li><a href="#services" class="nav-item">Services</a></li>
             <li><a href="#contact" class="nav-item">Contact</a></li>
             <li><a href="https://shop.ayushacharya.info.np/" class="nav-btn mobile-only">🛒 Shop Services</a></li>
           </ul>
@@ -1103,7 +1061,7 @@
         <div class="project-grid" id="projectGrid">
           <a href="https://hydrohabit.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
             <div class="card-thumb">
-              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/hydro-habit.png" alt="Hydro Habit app screenshot" loading="lazy">
+              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/hydro-habit.png" alt="Hydro Habit app screenshot" loading="lazy" width="300" height="169">
             </div>
             <span class="tag">Utility</span>
             <h3>Hydro Habit - Android App</h3>
@@ -1111,9 +1069,9 @@
             <div class="btn-link">Open <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
           </a>
 
-          <a href="https://ayushacharya.info.np/projects/wordpress-themes/" target="_blank" rel="noopener" class="project-card" data-category="Utility">
+          <a href="https://ayushacharya.info.np/projects/wordpress-themes/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
             <div class="card-thumb">
-              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/wordpress-themes/wordpress-themes.png" alt="WordPress Themes by Ayush screenshot" loading="lazy">
+              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/wordpress-themes/wordpress-themes.png" alt="WordPress Themes by Ayush screenshot" loading="lazy" width="300" height="169">
             </div>
             <span class="tag">Utility</span>
             <h3>Wordpress Themes By Ayush</h3>
@@ -1121,9 +1079,9 @@
             <div class="btn-link">Open <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
           </a>
 
-          <a href="https://instacode.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card" data-category="Utility">
+          <a href="https://instacode.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
             <div class="card-thumb">
-              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/instacode.png" alt="Insta CodE screenshot" loading="lazy">
+              <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/instacode.png" alt="Insta CodE screenshot" loading="lazy" width="300" height="169">
             </div>
             <span class="tag">Utility</span>
             <h3>Insta CodE</h3>
@@ -1150,9 +1108,7 @@
           </a>
         </div>
 
-        <div class="blog-grid" id="recent-blog-posts">
-          <!-- Dynamic posts will render here -->
-        </div>
+        <div class="blog-grid" id="recent-blog-posts"></div>
       </div>
     </section>
 
@@ -1224,7 +1180,7 @@
     (function () {
       document.body.classList.remove('no-js');
 
-      var menuToggle = document.getElementById('menuToggle');
+      const menuToggle = document.getElementById('menuToggle');
       const navLinks = document.getElementById('navLinks');
       const navItems = document.querySelectorAll('.nav-item, .nav-links .nav-btn');
       const toggleIcon = menuToggle.querySelector('i');
@@ -1313,7 +1269,6 @@
       updateActiveLink();
       updateBackToTop();
 
-      // Dynamic Blog Post Fetcher via JSONP
       window.handleBloggerPosts = function(data) {
         const container = document.getElementById('recent-blog-posts');
         if (!container) return;
@@ -1336,7 +1291,6 @@
             year: 'numeric'
           });
 
-          // High-Resolution Image Extractor Fix
           let mediaThumbnail = 'https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/images/profiles.webp';
           
           if (entry.content && entry.content.$t) {
@@ -1359,7 +1313,7 @@
           return `
             <a href="${link}" target="_blank" rel="noopener" class="blog-card reveal active">
               <div class="blog-thumb">
-                <img src="${mediaThumbnail}" alt="${title}" loading="lazy">
+                <img src="${mediaThumbnail}" alt="${title}" loading="lazy" width="300" height="187">
               </div>
               <div class="blog-content">
                 <div class="blog-meta">
