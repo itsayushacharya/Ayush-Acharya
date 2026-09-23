@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Ayush-Acharya/static/css/main.128f65b5.css",
+    "main.js": "/Ayush-Acharya/static/js/main.687993c8.js",
+    "index.html": "/Ayush-Acharya/index.html",
+    "main.128f65b5.css.map": "/Ayush-Acharya/static/css/main.128f65b5.css.map",
+    "main.687993c8.js.map": "/Ayush-Acharya/static/js/main.687993c8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.128f65b5.css",
+    "static/js/main.687993c8.js"
+  ]
+}
