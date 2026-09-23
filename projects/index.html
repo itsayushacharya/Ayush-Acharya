@@ -132,57 +132,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 35px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      transition: var(--transition);
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .nav-btn {
-      padding: 12px 26px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      display: inline-block;
-    }
-
-    .nav-btn:hover {
-      transform: translateY(-2px);
-      background: var(--text);
-      color: #ffffff;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
     main {
       padding-top: 140px;
       padding-bottom: 100px;
@@ -417,23 +366,6 @@
 
     @media (max-width: 768px) {
       .nav-container { padding: 0 20px; }
-      .menu-toggle { display: block; }
-      .nav-links {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background: rgba(244, 247, 246, 0.98);
-        backdrop-filter: blur(24px);
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 20px;
-        gap: 25px;
-        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border-top: 1px solid var(--border);
-      }
-      .nav-links.open { left: 0; }
       .project-grid { grid-template-columns: 1fr; }
       .footer-content { flex-direction: column; text-align: center; }
     }
@@ -445,20 +377,6 @@
     <div class="nav-container">
       <nav aria-label="Main Navigation">
         <div class="logo"><a href="index.html">Ayush<span> Acharya</span></a></div>
-        <div class="nav-right">
-          <ul class="nav-links" id="navLinks">
-            <li><a href="index.html#home">Home</a></li>
-            <li><a href="index.html#about">About</a></li>
-            <li><a href="project-vault.html" style="color: var(--primary);">Project Vault</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-            <li><a href="http://blog.ayushacharya.info.np/">Blog</a></li>
-          </ul>
-          <a href="https://shop.ayushacharya.info.np/" class="nav-btn">🛒 Shop Services</a>
-          <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-          </button>
-        </div>
       </nav>
     </div>
   </header>
@@ -606,14 +524,6 @@
   </button>
 
   <script>
-    // Menu toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-    menuToggle.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      menuToggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-    });
-
     // Back to top button
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
