@@ -101,7 +101,7 @@ export default function Portfolio() {
           year: 'numeric'
         });
 
-        let mediaThumbnail = 'https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/images/profiles.webp';
+        let mediaThumbnail = 'https://raw.githubusercontent.com/itsayushacharya/Ayush-Acharya/refs/heads/main/public/profile.webp';
         if (entry.content && entry.content.$t) {
           const imgMatch = entry.content.$t.match(/<img[^>]+src="([^">]+)"/);
           if (imgMatch) mediaThumbnail = imgMatch[1];
@@ -230,7 +230,7 @@ export default function Portfolio() {
             <div className="hero-image">
               <div className="profile-card">
                 <img
-                  src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/images/profile.webp"
+                  src="https://raw.githubusercontent.com/itsayushacharya/Ayush-Acharya/refs/heads/main/public/profile.webp"
                   alt="Portrait of Ayush Acharya"
                   width="380"
                   height="380"
@@ -285,7 +285,7 @@ export default function Portfolio() {
             <div className="project-grid" id="projectGrid">
               <article className="project-card reveal active" data-category="Utility">
                 <div className="card-thumb">
-                  <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/hydro-habit.png" alt="Hydro Habit preview" loading="lazy" width="300" height="169" />
+                  <img src="https://raw.githubusercontent.com/itsayushacharya/Hydro-Habit/refs/heads/main/download/thumbnail.png" alt="Hydro Habit preview" loading="lazy" width="300" height="169" />
                 </div>
                 <span className="tag">Android App</span>
                 <h3>Hydro Habit - Hydration Tracker</h3>
@@ -297,7 +297,7 @@ export default function Portfolio() {
 
               <article className="project-card reveal active" data-category="Utility">
                 <div className="card-thumb">
-                  <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/wordpress-themes/wordpress-themes.png" alt="WordPress themes preview" loading="lazy" width="300" height="169" />
+                  <img src="https://raw.githubusercontent.com/itsayushacharya/Evokebyayush/refs/heads/main/wordpress-themes.png" alt="WordPress themes preview" loading="lazy" width="300" height="169" />
                 </div>
                 <span className="tag">WordPress Theme</span>
                 <h3>WordPress Themes By Ayush</h3>
@@ -309,7 +309,7 @@ export default function Portfolio() {
 
               <article className="project-card reveal active" data-category="Utility">
                 <div className="card-thumb">
-                  <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/instacode.png" alt="Insta CodE preview" loading="lazy" width="300" height="169" />
+                  <img src="https://raw.githubusercontent.com/itsayushacharya/instacode/refs/heads/main/Screenshot.png" alt="Insta CodE preview" loading="lazy" width="300" height="169" />
                 </div>
                 <span className="tag">IDE WEBSITE</span>
                 <h3>Insta CodE - Web IDE</h3>
