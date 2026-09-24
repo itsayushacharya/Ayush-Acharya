@@ -309,7 +309,7 @@ export default function Portfolio() {
 
               <article className="project-card reveal active" data-category="Utility">
                 <div className="card-thumb">
-                  <img src="https://raw.githubusercontent.com/itsayushacharya/instacode/refs/heads/main/Screenshots.png" alt="Insta CodE preview" loading="lazy" width="300" height="169" />
+                  <img src="https://raw.githubusercontent.com/itsayushacharya/instacode/refs/heads/main/Screenshot.png" alt="Insta CodE preview" loading="lazy" width="300" height="169" />
                 </div>
                 <span className="tag">IDE WEBSITE</span>
                 <h3>Insta CodE - Web IDE</h3>
