@@ -297,7 +297,7 @@ export default function Portfolio() {
 
               <article className="project-card reveal active" data-category="Utility">
                 <div className="card-thumb">
-                  <img src="https://raw.githubusercontent.com/itsayushacharya/Evokebyayush/refs/heads/main/wordpress-themes.png" alt="WordPress themes preview" loading="lazy" width="300" height="169" />
+                  <img src="https://raw.githubusercontent.com/itsayushacharya/Evokebyayush/refs/heads/main/wordpress-theme.png" alt="WordPress themes preview" loading="lazy" width="300" height="169" />
                 </div>
                 <span className="tag">WordPress Theme</span>
                 <h3>WordPress Themes By Ayush</h3>
