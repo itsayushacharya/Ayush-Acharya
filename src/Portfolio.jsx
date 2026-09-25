@@ -241,31 +241,34 @@ export default function Portfolio() {
         </section>
 
         <section id="about" aria-labelledby="about-heading">
-          <div className="container">
-            <div className="section-title reveal active">
-              <span>About Me</span>
-              <h2 id="about-heading">Creative Developer &amp; SEO Strategist in Nepal</h2>
-              <p>
-                I combine modern web development, intuitive design, and Search Engine Optimization to build high-performance digital products that drive organic growth.
-              </p>
-            </div>
-            <div className="about-grid">
-              <div className="glass-card reveal active">
-                <h3>Who I Am</h3>
-                <p>
-                  Passionate about technology and search engine visibility, I specialize in full-stack web engineering, SEO-optimized content architecture, and tailored UX/UI designs.
-                </p>
-              </div>
-              <div className="glass-card reveal active">
-                <h3>My Mission</h3>
-                <p>
-                  To empower startups and established businesses with fast, secure, and SEO-focused web apps that secure top Google rankings and generate measurable business leads.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+  <div className="container">
+    <div className="section-title reveal active">
+      <span>About Me</span>
+      <h2 id="about-heading">
+        Nepali Developer, Tech Enthusiast &amp; Music Lover
+      </h2>
+      <p>
+        I'm a developer from Nepal who genuinely loves building things for the web — and yes, I usually have my headphones on while doing it.
+      </p>
+    </div>
 
+    <div className="about-grid">
+      <div className="glass-card reveal active">
+        <h3>A Bit About Me</h3>
+        <p>
+          I grew up curious about how things work, and that curiosity turned into a love for code. These days I spend my time crafting full-stack web apps, obsessing over clean UI, and figuring out how to make things rank on Google without gaming the system. When I'm not coding, I'm probably digging through a new playlist or jamming on my guitar.
+        </p>
+      </div>
+
+      <div className="glass-card reveal active">
+        <h3>What I'm Working Toward</h3>
+        <p>
+          My goal is simple — build tech that actually solves problems for people and businesses, especially here in Nepal and beyond. I want to create fast, honest, well-designed products that help brands grow organically and give users an experience they don't hate. Long-term, I want to be part of putting Nepali tech on the map.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
         <section id="projects" aria-labelledby="projects-heading">
           <div className="container">
             <div className="section-title reveal active">
