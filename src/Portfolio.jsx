@@ -269,6 +269,7 @@ export default function Portfolio() {
     </div>
   </div>
 </section>
+
         <section id="projects" aria-labelledby="projects-heading">
           <div className="container">
             <div className="section-title reveal active">
