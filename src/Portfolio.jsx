@@ -256,7 +256,7 @@ export default function Portfolio() {
       <div className="glass-card reveal active">
         <h3>A Bit About Me</h3>
         <p>
-          I grew up curious about how things work, and that curiosity turned into a love for code. These days I spend my time crafting full-stack web apps, obsessing over clean UI, and figuring out how to make things rank on Google without gaming the system. When I'm not coding, I'm probably digging through a new playlist or jamming on my guitar.
+          I grew up curious about how things work, and that curiosity turned into a love for code. These days I spend my time crafting full-stack web apps, obsessing over clean UI, and figuring out how to make things rank on Google without gaming the system. When I'm not coding, I'm probably digging through a new playlist.
         </p>
       </div>
 
