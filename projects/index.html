@@ -1,1 +1,619 @@
-<h1> Ayush Acharya</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Vault | Ayush Acharya</title>
+  <meta name="description" content="Explore the complete Project Vault by Ayush Acharya — applications, utilities, AI tools, media projects, and technical experiments." />
+  <meta name="author" content="Ayush Acharya" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="canonical" href="https://ayushacharya.info.np/projects/" />
+  <link rel="icon" type="image/webp" href="images/profiles.webp" />
+  <link rel="apple-touch-icon" href="images/profiles.webp" />
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  
+  <style>
+    :root {
+      --bg-light: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --card-hover-border: #cbd5e1;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-soft: rgba(79, 70, 229, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      --radius: 16px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 1rem;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 0.5rem 1rem;
+      z-index: 1000;
+      transition: top 0.2s ease;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .nav-container nav {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 72px;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .logo a {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      display: inline-block;
+      transition: var(--transition);
+    }
+
+    .logo a span {
+      color: var(--primary);
+    }
+
+    .logo a:hover {
+      opacity: 0.9;
+    }
+
+    .vault-hero {
+      min-height: 38vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 130px;
+      padding-bottom: 20px;
+    }
+
+    .section-title span.tagline {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--primary);
+      display: inline-block;
+      margin-bottom: 10px;
+      background: var(--primary-soft);
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+    }
+
+    .vault-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    .vault-hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .vault-hero p {
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    .vault-projects {
+      padding-bottom: 90px;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 2.5rem 0 3rem;
+    }
+
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.55rem 1.35rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--card-hover-border);
+      color: var(--text-main);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(79, 70, 229, 0.3);
+      box-shadow: var(--shadow-md);
+    }
+
+    .project-card .tag {
+      align-self: flex-start;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-icon {
+      font-size: 1.75rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      width: 48px;
+      height: 48px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--card-border);
+    }
+
+    .project-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .btn-link {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      margin-top: auto;
+    }
+
+    .project-card:hover .btn-link {
+      gap: 0.75rem;
+      color: var(--primary-hover);
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 2.5rem 0;
+      background: #ffffff;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .socials {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .socials a {
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .socials a:hover {
+      color: var(--primary);
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: #ffffff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 90;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Accessibility Focus Rings */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 640px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+      .vault-hero {
+        padding-top: 110px;
+      }
+    }
+  </style>
+</head>
+
+<body class="no-js">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header>
+    <div class="nav-container">
+      <nav aria-label="Main Navigation">
+        <div class="logo">
+          <a href="https://ayushacharya.info.np/">Ayush<span> Acharya</span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="vault-hero" aria-label="Project Vault introduction">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="tagline">Project Vault</span>
+          <h1>Everything I've <span>Built.</span></h1>
+          <p>A complete collection of production applications, engineering experiments, utilities, AI tools, and media projects.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vault-projects" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+        <div class="filter-container reveal" role="group" aria-label="Filter projects by category">
+          <button class="filter-btn active" data-filter="all" aria-pressed="true">All Work</button>
+          <button class="filter-btn" data-filter="AI" aria-pressed="false">AI Tools</button>
+          <button class="filter-btn" data-filter="Utility" aria-pressed="false">Utilities</button>
+          <button class="filter-btn" data-filter="Media" aria-pressed="false">Media</button>
+        </div>
+
+        <div class="sr-only" aria-live="polite" id="filter-status">Showing all projects</div>
+
+        <div class="project-grid" id="projectGrid">
+          <!-- 1. Hydro Habit -->
+          <a href="https://hydrohabit.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
+            <span class="tag">Utility</span>
+            <div class="card-icon"><i class="fa-solid fa-droplet" aria-hidden="true"></i></div>
+            <h3>Hydro Habit - Android App</h3>
+            <p>A minimalist Android app that uses clean visuals to track daily water intake and build consistent hydration routines.</p>
+            <div class="btn-link">Open App <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 2. Amply -->
+          <a href="https://amply.ayushacharya.info.np" target="_blank" rel="noopener" class="project-card reveal" data-category="Media">
+            <span class="tag">Media</span>
+            <div class="card-icon"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></div>
+            <h3>Amply</h3>
+            <p>Browser Extension to boost your browser audio up to 600%. Clean, powerful, and easy to control.</p>
+            <div class="btn-link">Download Extension <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 3. Tech Store Nepal -->
+          <a href="https://techstorenp.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
+            <span class="tag">Utility</span>
+            <div class="card-icon"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div>
+            <h3>Tech Store Nepal</h3>
+            <p>An electronics e-commerce store specializing in personal wearables, mobile accessories, and premium audio technology.</p>
+            <div class="btn-link">Visit Store <i class="fas fa-external-link-alt" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 4. WordPress Themes -->
+          <a href="https://ayushacharya.info.np/projects/wordpress-themes/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
+            <span class="tag">Utility</span>
+            <div class="card-icon"><i class="fa-brands fa-wordpress" aria-hidden="true"></i></div>
+            <h3>WordPress Themes</h3>
+            <p>Clean, modern, and high-performance WordPress themes built for content creators, publishers, and institutions.</p>
+            <div class="btn-link">Explore Themes <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 5. ClearBG.ai -->
+          <a href="https://clearbg.ayushacharya.info.np" target="_blank" rel="noopener" class="project-card reveal" data-category="AI">
+            <span class="tag">AI</span>
+            <div class="card-icon"><i class="fas fa-magic" aria-hidden="true"></i></div>
+            <h3>ClearBG.ai</h3>
+            <p>High-precision image background removal tool powered by deep neural network models.</p>
+            <div class="btn-link">Remove Background <i class="fas fa-external-link-alt" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 6. Mausam Info -->
+          <a href="https://mausaminfo.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
+            <span class="tag">Utility</span>
+            <div class="card-icon"><i class="fa-solid fa-cloud-sun" aria-hidden="true"></i></div>
+            <h3>Mausam Info</h3>
+            <p>Reliable weather information platform providing real-time climate updates and forecasts for locations in Nepal.</p>
+            <div class="btn-link">Check Weather <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 7. Aajako Samachar -->
+          <a href="https://aajakosamachar.ayushacharya.info.np" target="_blank" rel="noopener" class="project-card reveal" data-category="Media">
+            <span class="tag">Media</span>
+            <div class="card-icon"><i class="fas fa-newspaper" aria-hidden="true"></i></div>
+            <h3>Aajako Samachar</h3>
+            <p>Aggregating news from 10+ major Nepali sources in real-time for fast and concise reading updates.</p>
+            <div class="btn-link">Read News <i class="fas fa-external-link-alt" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 8. Learn with Ayush -->
+          <a href="https://learn.ayushacharya.info.np" target="_blank" rel="noopener" class="project-card reveal" data-category="Media">
+            <span class="tag">Media</span>
+            <div class="card-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
+            <h3>Learn with Ayush</h3>
+            <p>Localized technology courses, tutorials, and video lessons structured specifically for students and beginner devs.</p>
+            <div class="btn-link">Start Learning <i class="fas fa-play" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 9. Note It -->
+          <a href="https://noteit.ayushacharya.info.np" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
+            <span class="tag">Utility</span>
+            <div class="card-icon"><i class="fas fa-sticky-note" aria-hidden="true"></i></div>
+            <h3>Note It</h3>
+            <p>A fast, distraction-free markdown workspace for capturing quick thoughts, notes, and code snippets.</p>
+            <div class="btn-link">Open Workspace <i class="fas fa-edit" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 10. Passport Pro -->
+          <a href="https://passportpro.ayushacharya.info.np" target="_blank" rel="noopener" class="project-card reveal" data-category="AI">
+            <span class="tag">AI</span>
+            <div class="card-icon"><i class="fas fa-id-card" aria-hidden="true"></i></div>
+            <h3>Passport Pro</h3>
+            <p>Smart auto-cropping and dimensional adjustments for official passport and government ID photos.</p>
+            <div class="btn-link">Resize Photo <i class="fas fa-crop" aria-hidden="true"></i></div>
+          </a>
+
+          <!-- 11. Insta Code -->
+          <a href="https://instacode.ayushacharya.info.np/" target="_blank" rel="noopener" class="project-card reveal" data-category="Utility">
+            <span class="tag">Utility</span>
+            <div class="card-icon"><i class="fa fa-code" aria-hidden="true"></i></div>
+            <h3>Insta Code</h3>
+            <p>Lightweight web IDE designed for rapid web prototyping without local environment setup friction.</p>
+            <div class="btn-link">Launch Playground <i class="fas fa-code" aria-hidden="true"></i></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p>&copy; 2026 Ayush Acharya. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://github.com/ayushacharya05" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/ayush-acharya-31a838263/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a href="https://www.instagram.com/itsayushacharya/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <script>
+    document.body.classList.remove('no-js');
+
+    // Scroll to Top Button Toggle
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Intersection Observer for Smooth Entrance Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Category Filter Handler
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projects = document.querySelectorAll('.project-card');
+    const statusAnnouncer = document.getElementById('filter-status');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
+        });
+
+        button.classList.add('active');
+        button.setAttribute('aria-pressed', 'true');
+
+        let count = 0;
+        projects.forEach(project => {
+          const matches = filter === 'all' || project.dataset.category === filter;
+          if (matches) {
+            project.classList.remove('is-hidden');
+            count++;
+          } else {
+            project.classList.add('is-hidden');
+          }
+        });
+
+        statusAnnouncer.textContent = `Showing ${count} projects for category ${filter}`;
+      });
+    });
+  </script>
+</body>
+</html>
