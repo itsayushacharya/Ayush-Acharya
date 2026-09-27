@@ -239,8 +239,7 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
-
-        <section id="about" aria-labelledby="about-heading">
+<section id="about" aria-labelledby="about-heading">
   <div className="container">
     <div className="section-title reveal active">
       <span>About Me</span>
@@ -248,7 +247,7 @@ export default function Portfolio() {
         Nepali Developer, Tech Enthusiast &amp; Music Lover
       </h2>
       <p>
-        I'm a developer from Nepal who genuinely loves building things for the web — and yes, I usually have my headphones on while doing it.
+        I'm a developer from Nepal who genuinely loves building things for the web, and yes, I usually have my headphones on while doing it.
       </p>
     </div>
 
@@ -256,20 +255,25 @@ export default function Portfolio() {
       <div className="glass-card reveal active">
         <h3>A Bit About Me</h3>
         <p>
-          I grew up curious about how things work, and that curiosity turned into a love for code. These days I spend my time crafting full-stack web apps, obsessing over clean UI, and figuring out how to make things rank on Google without gaming the system. When I'm not coding, I'm probably digging through a new playlist.
+          From being a kid fascinated by technology to establishing my online presence today, my journey has always been driven by curiosity.
+        </p>
+        <p>
+          Growing up, I was fortunate to have early access to computers and home internet thanks to my family. That early advantage sparked a deep passion for tech: while others were just getting introduced to computers, I was already exploring software.
+        </p>
+        <p>
+          Driven by a constant desire to know "how things work," I taught myself by doing: breaking down ideas, testing, tweaking, and building step-by-step. Today, that curiosity has evolved into building active web projects, mastering search optimization, and creating a strong digital presence, proving how far passion and persistence can take you.
         </p>
       </div>
 
       <div className="glass-card reveal active">
         <h3>What I'm Working Toward</h3>
         <p>
-          My goal is simple — build tech that actually solves problems for people and businesses, especially here in Nepal and beyond. I want to create fast, honest, well-designed products that help brands grow organically and give users an experience they don't hate. Long-term, I want to be part of putting Nepali tech on the map.
+          My goal is simple: build tech that actually solves problems for people and businesses, especially here in Nepal and beyond. I want to create fast, honest, well-designed products that help brands grow organically and give users an experience they don't hate. Long-term, I want to be part of putting Nepali tech on the map.
         </p>
       </div>
     </div>
   </div>
 </section>
-
         <section id="projects" aria-labelledby="projects-heading">
           <div className="container">
             <div className="section-title reveal active">
