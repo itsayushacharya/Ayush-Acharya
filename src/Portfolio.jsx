@@ -84,7 +84,10 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
+
     window.handleBloggerPosts = (data) => {
+      if (!isMounted) return;
       setBlogLoading(false);
       const entries = data?.feed?.entry || [];
       if (entries.length === 0) return;
@@ -126,12 +129,15 @@ export default function Portfolio() {
     const script = document.createElement('script');
     script.src = 'https://blog.ayushacharya.info.np/feeds/posts/default?alt=json-in-script&callback=handleBloggerPosts&max-results=9';
     script.onerror = () => {
-      setBlogLoading(false);
-      setBlogError(true);
+      if (isMounted) {
+        setBlogLoading(false);
+        setBlogError(true);
+      }
     };
     document.body.appendChild(script);
 
     return () => {
+      isMounted = false;
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
@@ -258,6 +264,7 @@ export default function Portfolio() {
                 <p>Driven by early access to computers and a constant curiosity for how things work, I taught myself tech by building, testing, and exploring software from a young age.</p>
                 <p>Today, that lifelong passion translates into developing web projects, mastering SEO, and building a strong digital presence through continuous learning and persistence.</p>
               </div>
+
               <div className="glass-card reveal active">
                 <h3>What I'm Working Toward</h3>
                 <p>
