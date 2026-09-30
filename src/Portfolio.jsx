@@ -258,7 +258,7 @@ export default function Portfolio() {
     <p>Today, that lifelong passion translates into developing web projects, mastering SEO, and building a strong digital presence through continuous learning and persistence.</p>
   </div>
 </div>
-  
+
 </div>
       <div className="glass-card reveal active">
         <h3>What I'm Working Toward</h3>
