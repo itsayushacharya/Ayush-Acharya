@@ -251,20 +251,14 @@ export default function Portfolio() {
       </p>
     </div>
 
-    <div className="about-grid">
-      <div className="glass-card reveal active">
-        <h3>A Bit About Me</h3>
-        <p>
-          From being a kid fascinated by technology to establishing my online presence today, my journey has always been driven by curiosity.
-        </p>
-        <p>
-          Growing up, I was fortunate to have early access to computers and home internet thanks to my family. That early advantage sparked a deep passion for tech: while others were just getting introduced to computers, I was already exploring software.
-        </p>
-        <p>
-          Driven by a constant desire to know "how things work," I taught myself by doing: breaking down ideas, testing, tweaking, and building step-by-step. Today, that curiosity has evolved into building active web projects, mastering search optimization, and creating a strong digital presence, proving how far passion and persistence can take you.
-        </p>
-      </div>
-
+   <div className="about-grid">
+  <div className="glass-card reveal active">
+    <h3>A Bit About Me</h3>
+    <p>From being a kid fascinated by technology to establishing my online presence today, my journey has always been driven by curiosity.</p>
+    <p>Growing up, I was fortunate to have early access to computers and home internet thanks to my family. That early advantage sparked a deep passion for tech: while others were just getting introduced to computers, I was already exploring software.</p>
+    <p>Driven by a constant desire to know "how things work," I taught myself by doing: breaking down ideas, testing, tweaking, and building step-by-step. Today, that curiosity has evolved into building active web projects, mastering search optimization, and creating a strong digital presence, proving how far passion and persistence can take you.</p>
+  </div>
+</div>
       <div className="glass-card reveal active">
         <h3>What I'm Working Toward</h3>
         <p>
