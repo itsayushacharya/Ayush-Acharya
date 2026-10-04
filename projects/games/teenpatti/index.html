@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teen Patti Game</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d5c3a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .table-area {
+            background: radial-gradient(circle, #15803d 0%, #052e16 100%);
+            border: 12px solid #b45309;
+            border-radius: 150px;
+            padding: 40px 20px;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .playing-card {
+            width: 80px;
+            height: 115px;
+            background-color: white;
+            color: black;
+            border-radius: 8px;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            margin: 0 5px;
+            user-select: none;
+        }
+        .playing-card.red {
+            color: #dc3545;
+        }
+        .playing-card.card-back {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border: 2px solid white;
+            color: transparent;
+        }
+        .suit-center {
+            font-size: 2rem;
+            align-self: center;
+            line-height: 1;
+        }
+        .chip-badge {
+            background-color: #fbbf24;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px dashed #78350f;
+        }
+
+        /* Fixed Rules Button in Top Right Corner (Small & Brown) */
+        .rules-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background-color: #78350f; /* Rich Brown color */
+            color: #ffffff;
+            border: 1px solid #b45309;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease-in-out;
+        }
+        .rules-btn:hover {
+            background-color: #b45309;
+            color: #ffffff;
+            border-color: #d97706;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Rules Button (Small, Fixed Top-Right, Brown Theme) -->
+<button class="btn rules-btn btn-sm fw-bold rounded-pill" data-bs-toggle="modal" data-bs-target="#rulesModal">
+    Rules 📜
+</button>
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 text-center table-area">
+
+            <!-- Dealer / Bot Section -->
+            <div class="mb-4">
+                <h5 class="text-warning">Dealer / Bot</h5>
+                <div id="dealer-hand" class="d-flex justify-content-center my-2">
+                    <div class="playing-card card-back"></div>
+                    <div class="playing-card card-back"></div>
+                    <div class="playing-card card-back"></div>
+                </div>
+                <div id="dealer-status" class="badge bg-dark mt-1">Waiting...</div>
+            </div>
+
+            <!-- Pot Section -->
+            <div class="my-3 py-2 bg-dark bg-opacity-50 rounded-pill d-inline-block px-4">
+                <span class="fs-5 me-2">Current Pot:</span>
+                <span id="pot-amount" class="chip-badge">रु 0</span>
+            </div>
+
+            <!-- Player Section -->
+            <div class="mt-3">
+                <div id="player-hand" class="d-flex justify-content-center my-2">
+                    <div class="playing-card card-back"></div>
+                    <div class="playing-card card-back"></div>
+                    <div class="playing-card card-back"></div>
+                </div>
+                <h5 class="text-warning mt-2">You (Player)</h5>
+                <div id="player-status" class="badge bg-dark mb-2">Ready</div>
+                <div>
+                    <span class="fs-6">Your Chips: <strong class="text-warning" id="player-chips">रु 1000</strong></span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="mt-4 d-flex justify-content-center gap-2 flex-wrap" id="controls">
+                <button id="btn-deal" class="btn btn-warning btn-lg fw-bold px-4" onclick="startGame()">Deal Cards</button>
+                <button id="btn-bet" class="btn btn-primary btn-lg fw-bold px-3" onclick="placeBet(50)" disabled>Chaal (+रु 50)</button>
+                <button id="btn-custom-bet" class="btn btn-info text-white btn-lg fw-bold px-3" onclick="openCustomBetModal()" disabled>Custom Chaal ✏️</button>
+                <button id="btn-pack" class="btn btn-danger btn-lg fw-bold px-3" onclick="pack()" disabled>Pack (Fold)</button>
+                <button id="btn-show" class="btn btn-success btn-lg fw-bold px-3" onclick="showCards()" disabled>Show</button>
+            </div>
+
+            <!-- Message Area -->
+            <div id="game-message" class="alert alert-info mt-4 mb-0 d-none" role="alert"></div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Welcome / Borrow Alert Modal -->
+<div class="modal fade" id="welcomeModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark text-center">
+            <div class="modal-header border-0 pb-0">
+                <h4 class="modal-title fw-bold w-100 text-center text-primary">💰 Loan Credit Notice</h4>
+            </div>
+            <div class="modal-body py-4">
+                <div class="fs-1 mb-2">🏦</div>
+                <h5 class="fw-bold">We have given you रु 1000 borrow!</h5>
+                <p class="text-muted mb-0">Play, earn chips (+रु 100 bonus on win, -रु 50 penalty on loss), and once you earn enough, we will take our रु 1000 back!</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pt-0">
+                <button type="button" class="btn btn-primary btn-lg fw-bold px-5" data-bs-dismiss="modal">Start Playing 🃏</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Chaal Modal -->
+<div class="modal fade" id="customBetModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content text-dark text-center">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold w-100 text-center">Custom Chaal ✏️</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-3">
+                <label for="custom-bet-input" class="form-label text-muted">Enter Chaal Amount (रु)</label>
+                <input type="number" id="custom-bet-input" class="form-control text-center fs-4 fw-bold" placeholder="100" min="10" step="10">
+                <small id="custom-bet-error" class="text-danger d-none mt-2 d-block"></small>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pt-0">
+                <button type="button" class="btn btn-primary fw-bold px-4" onclick="submitCustomBet()">Place Chaal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Game Rules Modal -->
+<div class="modal fade" id="rulesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content text-dark">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold">📜 Teen Patti Game Rules & Hand Rankings</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start" style="max-height: 70vh; overflow-y: auto;">
+                <h6 class="fw-bold text-primary mb-2">💵 Borrow & Economy Rules</h6>
+                <ul class="mb-3">
+                    <li><strong>Borrowed Amount:</strong> You start with <strong>रु 1000 borrowed chips</strong>.</li>
+                    <li><strong>Winning Reward:</strong> Every round you win awards you the pot amount plus a bonus of <strong>+रु 100</strong>.</li>
+                    <li><strong>Losing Penalty:</strong> Every round you lose (or fold) deducts <strong>-रु 50</strong> from your balance.</li>
+                </ul>
+
+                <h6 class="fw-bold text-primary mb-2">🃏 Game Control Actions</h6>
+                <ul class="mb-3">
+                    <li><strong>Chaal (+रु 50):</strong> Adds रु 50 to the pot, and the dealer matches it.</li>
+                    <li><strong>Custom Chaal:</strong> Place any custom bet amount you want!</li>
+                    <li><strong>Pack (Fold):</strong> Forfeits the round immediately (-रु 50 penalty).</li>
+                    <li><strong>Show:</strong> Reveals both hands to declare the winner based on ranking.</li>
+                </ul>
+
+                <h6 class="fw-bold text-primary mb-2">🏆 Hand Rankings (Highest to Lowest)</h6>
+                <ol class="list-group list-group-numbered mb-2">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">1. Trio / Trail (Three of a Kind)</div>
+                            Three cards of the same rank (e.g., A-A-A, K-K-K, 2-2-2).
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">2. Pure Sequence (Straight Flush)</div>
+                            Three consecutive cards of the same suit (e.g., A-K-Q or 4-3-2 of Hearts).
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">3. Sequence (Straight)</div>
+                            Three consecutive cards of mixed suits (e.g., A-K-Q or 5-6-7).
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">4. Color (Flush)</div>
+                            Three cards of the same suit not in sequence (e.g., A-10-6 of Spades).
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">5. Pair</div>
+                            Two cards of the same rank + one odd card (e.g., K-K-5 or 7-7-J).
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">6. High Card</div>
+                            If no hand combination is matched, the highest individual card determines the winner.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary fw-bold px-4" data-bs-dismiss="modal">Close Rules</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Round Result Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark text-center">
+            <div class="modal-header border-0 pb-0">
+                <h4 class="modal-title fw-bold w-100 text-center" id="modal-title">Round Result</h4>
+            </div>
+            <div class="modal-body py-4">
+                <div id="modal-icon" class="fs-1 mb-2">🏆</div>
+                <h5 id="modal-message" class="fw-bold"></h5>
+                <p id="modal-submessage" class="text-muted mb-0"></p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pt-0">
+                <button type="button" class="btn btn-success btn-lg fw-bold px-5" data-bs-dismiss="modal" onclick="continueGame()">Continue Game 🔄</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const SUITS = [
+        { symbol: '♠', name: 'spades', isRed: false },
+        { symbol: '♥', name: 'hearts', isRed: true },
+        { symbol: '♦', name: 'diamonds', isRed: true },
+        { symbol: '♣', name: 'clubs', isRed: false }
+    ];
+
+    const RANKS = [
+        { rank: 2, label: '2' }, { rank: 3, label: '3' }, { rank: 4, label: '4' },
+        { rank: 5, label: '5' }, { rank: 6, label: '6' }, { rank: 7, label: '7' },
+        { rank: 8, label: '8' }, { rank: 9, label: '9' }, { rank: 10, label: '10' },
+        { rank: 11, label: 'J' }, { rank: 12, label: 'Q' }, { rank: 13, label: 'K' },
+        { rank: 14, label: 'A' }
+    ];
+
+    const WIN_BONUS = 100;
+    const LOSS_PENALTY = 50;
+
+    let deck = [];
+    let playerHand = [];
+    let dealerHand = [];
+    let playerChips = 1000;
+    let pot = 0;
+    let gameActive = false;
+    let resultModalInstance = null;
+    let welcomeModalInstance = null;
+    let customBetModalInstance = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        resultModalInstance = new bootstrap.Modal(document.getElementById('resultModal'));
+        welcomeModalInstance = new bootstrap.Modal(document.getElementById('welcomeModal'));
+        customBetModalInstance = new bootstrap.Modal(document.getElementById('customBetModal'));
+        
+        welcomeModalInstance.show();
+
+        // Ensure backdrop cleanup when modals hide
+        document.querySelectorAll('.modal').forEach(modalEl => {
+            modalEl.addEventListener('hidden.bs.modal', () => {
+                document.body.classList.remove('modal-open');
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => backdrop.remove());
+            });
+        });
+    });
+
+    function createDeck() {
+        deck = [];
+        for (let suit of SUITS) {
+            for (let rank of RANKS) {
+                deck.push({ ...rank, ...suit });
+            }
+        }
+    }
+
+    function shuffleDeck() {
+        for (let i = deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+    }
+
+    function updateUI() {
+        document.getElementById('player-chips').innerText = `रु ${playerChips}`;
+        document.getElementById('pot-amount').innerText = `रु ${pot}`;
+    }
+
+    function setMessage(msg, type = 'info') {
+        const msgBox = document.getElementById('game-message');
+        msgBox.className = `alert alert-${type} mt-4 mb-0`;
+        msgBox.innerText = msg;
+        msgBox.classList.remove('d-none');
+    }
+
+    function clearMessage() {
+        document.getElementById('game-message').classList.add('d-none');
+    }
+
+    function renderCardHTML(card, faceUp = true) {
+        if (!faceUp) {
+            return `<div class="playing-card card-back"></div>`;
+        }
+        const colorClass = card.isRed ? 'red' : '';
+        return `
+            <div class="playing-card ${colorClass}">
+                <div>${card.label}</div>
+                <div class="suit-center">${card.symbol}</div>
+                <div class="text-end">${card.label}</div>
+            </div>
+        `;
+    }
+
+    function renderHands(revealDealer = false) {
+        const playerHTML = playerHand.length 
+            ? playerHand.map(card => renderCardHTML(card, true)).join('')
+            : '<div class="playing-card card-back"></div>'.repeat(3);
+        document.getElementById('player-hand').innerHTML = playerHTML;
+
+        const dealerHTML = dealerHand.length 
+            ? dealerHand.map(card => renderCardHTML(card, revealDealer)).join('')
+            : '<div class="playing-card card-back"></div>'.repeat(3);
+        document.getElementById('dealer-hand').innerHTML = dealerHTML;
+    }
+
+    function startGame() {
+        clearMessage();
+        createDeck();
+        shuffleDeck();
+
+        pot = 0;
+        updateUI();
+
+        playerHand = [deck.pop(), deck.pop(), deck.pop()];
+        dealerHand = [deck.pop(), deck.pop(), deck.pop()];
+
+        gameActive = true;
+        renderHands(false);
+
+        document.getElementById('btn-deal').disabled = true;
+        document.getElementById('btn-bet').disabled = false;
+        document.getElementById('btn-custom-bet').disabled = false;
+        document.getElementById('btn-pack').disabled = false;
+        document.getElementById('btn-show').disabled = false;
+
+        document.getElementById('player-status').innerText = "Playing";
+        document.getElementById('dealer-status').innerText = "Playing";
+    }
+
+    function placeBet(amount) {
+        if (!gameActive) return;
+
+        if (playerChips < amount) {
+            setMessage("Not enough chips to place this Chaal!", "warning");
+            return;
+        }
+
+        playerChips -= amount;
+        pot += amount * 2;
+        updateUI();
+        setMessage(`You placed Chaal of रु ${amount}. Dealer matched!`, "info");
+    }
+
+    function openCustomBetModal() {
+        if (!gameActive) return;
+        document.getElementById('custom-bet-input').value = '';
+        document.getElementById('custom-bet-error').classList.add('d-none');
+        customBetModalInstance.show();
+    }
+
+    function submitCustomBet() {
+        const inputVal = parseInt(document.getElementById('custom-bet-input').value, 10);
+        const errorElement = document.getElementById('custom-bet-error');
+
+        if (isNaN(inputVal) || inputVal <= 0) {
+            errorElement.innerText = "Please enter a valid amount greater than 0!";
+            errorElement.classList.remove('d-none');
+            return;
+        }
+
+        if (inputVal > playerChips) {
+            errorElement.innerText = `You only have रु ${playerChips} chips!`;
+            errorElement.classList.remove('d-none');
+            return;
+        }
+
+        customBetModalInstance.hide();
+        placeBet(inputVal);
+    }
+
+    function pack() {
+        if (!gameActive) return;
+
+        gameActive = false;
+        renderHands(true);
+
+        playerChips = Math.max(0, playerChips - LOSS_PENALTY);
+        pot = 0;
+        updateUI();
+        endGame();
+
+        showPopup({
+            title: "You Folded!",
+            icon: "❌",
+            message: `You packed (folded). Deducted रु ${LOSS_PENALTY}!`,
+            submessage: "Dealer wins the round."
+        });
+    }
+
+    function evaluateHand(hand) {
+        let sorted = [...hand].sort((a, b) => b.rank - a.rank);
+        let ranks = sorted.map(c => c.rank);
+        let suits = sorted.map(c => c.symbol);
+
+        let isFlush = (suits[0] === suits[1] && suits[1] === suits[2]);
+        
+        let isStraight = false;
+        if (ranks[0] - ranks[1] === 1 && ranks[1] - ranks[2] === 1) {
+            isStraight = true;
+        } else if (ranks[0] === 14 && ranks[1] === 3 && ranks[2] === 2) { 
+            isStraight = true;
+            ranks = [3, 2, 1]; 
+        }
+
+        let isTrio = (ranks[0] === ranks[1] && ranks[1] === ranks[2]);
+        let isPair = (ranks[0] === ranks[1] || ranks[1] === ranks[2] || ranks[0] === ranks[2]);
+
+        if (isTrio) return { type: 6, name: "Trio / Trail", score: ranks[0] };
+        if (isStraight && isFlush) return { type: 5, name: "Pure Sequence", score: ranks[0] };
+        if (isStraight) return { type: 4, name: "Sequence", score: ranks[0] };
+        if (isFlush) return { type: 3, name: "Color / Flush", score: ranks[0] * 100 + ranks[1] * 10 + ranks[2] };
+        
+        if (isPair) {
+            let pairRank, kicker;
+            if (ranks[0] === ranks[1]) { pairRank = ranks[0]; kicker = ranks[2]; }
+            else if (ranks[1] === ranks[2]) { pairRank = ranks[1]; kicker = ranks[0]; }
+            else { pairRank = ranks[0]; kicker = ranks[1]; }
+            return { type: 2, name: "Pair", score: pairRank * 10 + kicker };
+        }
+
+        return { type: 1, name: "High Card", score: ranks[0] * 100 + ranks[1] * 10 + ranks[2] };
+    }
+
+    function showCards() {
+        if (!gameActive) return;
+
+        gameActive = false;
+        renderHands(true);
+
+        const playerEval = evaluateHand(playerHand);
+        const dealerEval = evaluateHand(dealerHand);
+
+        let winner = null;
+
+        if (playerEval.type > dealerEval.type) {
+            winner = 'player';
+        } else if (dealerEval.type > playerEval.type) {
+            winner = 'dealer';
+        } else {
+            if (playerEval.score > dealerEval.score) {
+                winner = 'player';
+            } else if (dealerEval.score > playerEval.score) {
+                winner = 'dealer';
+            } else {
+                winner = 'tie';
+            }
+        }
+
+        if (winner === 'player') {
+            const totalWinnings = pot + WIN_BONUS;
+            playerChips += totalWinnings;
+            
+            showPopup({
+                title: "You Win!",
+                icon: "🎉",
+                message: `You won रु ${pot} + Bonus रु ${WIN_BONUS}!`,
+                submessage: `Your ${playerEval.name} beat Dealer's ${dealerEval.name}`
+            });
+        } else if (winner === 'dealer') {
+            playerChips = Math.max(0, playerChips - LOSS_PENALTY);
+
+            showPopup({
+                title: "Dealer Wins!",
+                icon: "❌",
+                message: `Dealer takes the round. Deducted रु ${LOSS_PENALTY}!`,
+                submessage: `Dealer's ${dealerEval.name} beat Your ${playerEval.name}`
+            });
+        } else {
+            playerChips += (pot / 2);
+            showPopup({
+                title: "It's a Tie!",
+                icon: "🤝",
+                message: `The pot has been split.`,
+                submessage: `Both players had ${playerEval.name}`
+            });
+        }
+
+        pot = 0;
+        updateUI();
+        endGame();
+    }
+
+    function showPopup({ title, icon, message, submessage }) {
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-icon').innerText = icon;
+        document.getElementById('modal-message').innerText = message;
+        document.getElementById('modal-submessage').innerText = submessage;
+        
+        if (resultModalInstance) {
+            resultModalInstance.show();
+        }
+    }
+
+    function endGame() {
+        document.getElementById('btn-deal').disabled = false;
+        document.getElementById('btn-bet').disabled = true;
+        document.getElementById('btn-custom-bet').disabled = true;
+        document.getElementById('btn-pack').disabled = true;
+        document.getElementById('btn-show').disabled = true;
+        
+        document.getElementById('player-status').innerText = "Round Finished";
+        document.getElementById('dealer-status').innerText = "Round Finished";
+    }
+
+    function continueGame() {
+        playerHand = [];
+        dealerHand = [];
+        pot = 0;
+        updateUI();
+        clearMessage();
+        
+        renderHands(false);
+        
+        document.getElementById('player-status').innerText = "Ready";
+        document.getElementById('dealer-status').innerText = "Waiting...";
+
+        startGame();
+    }
+
+    updateUI();
+</script>
+</body>
+</html>
