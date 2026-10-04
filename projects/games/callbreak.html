@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Call Break by Ayush</title>
+  <style>
+    :root {
+      --bg-color: #0d1b1e;
+      --table-color: #1b4332;
+      --table-border: #2d6a4f;
+      --card-bg: #ffffff;
+      --text-color: #f8f9fa;
+      --accent-color: #ffb703;
+      --accent-hover: #fb8500;
+      --spade-color: #1d3557;
+      --red-card: #e63946;
+      --black-card: #1d3557;
+      --shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    header {
+      width: 100%;
+      padding: 12px 24px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand span {
+      color: #fff;
+      font-weight: 300;
+      font-size: 0.9rem;
+    }
+
+    .status-bar {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+
+    /* Game Table Layout */
+    .table-container {
+      position: relative;
+      width: min(92vw, 800px);
+      height: min(65vh, 520px);
+      background: radial-gradient(circle, var(--table-color) 60%, var(--table-border) 100%);
+      border: 8px solid #081c15;
+      border-radius: 120px;
+      box-shadow: var(--shadow), inset 0 0 40px rgba(0,0,0,0.6);
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Player Zones */
+    .player-slot {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      z-index: 5;
+    }
+
+    .slot-top { top: 12px; }
+    .slot-left { left: 16px; }
+    .slot-right { right: 16px; }
+    .slot-bottom { bottom: 12px; }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #2b2d42;
+      border: 2px solid var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .active-turn .avatar {
+      border-color: #00f5d4;
+      box-shadow: 0 0 12px #00f5d4;
+    }
+
+    .player-info {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      text-align: center;
+      min-width: 85px;
+    }
+
+    /* Played Cards Area */
+    .trick-area {
+      position: relative;
+      width: 220px;
+      height: 180px;
+    }
+
+    .played-card {
+      position: absolute;
+      width: 64px;
+      height: 90px;
+      transition: all 0.3s ease;
+    }
+
+    .played-top { top: 0; left: 78px; }
+    .played-left { top: 45px; left: 15px; }
+    .played-right { top: 45px; right: 15px; }
+    .played-bottom { bottom: 0; left: 78px; }
+
+    /* Cards Styling */
+    .card {
+      width: 68px;
+      height: 96px;
+      background: var(--card-bg);
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4px 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.4);
+    }
+
+    .card.disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none !important;
+    }
+
+    .card.red { color: var(--red-card); }
+    .card.black { color: var(--black-card); }
+
+    .card-corner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 0.9;
+      font-size: 0.85rem;
+    }
+
+    .card-center-suit {
+      font-size: 1.6rem;
+      align-self: center;
+    }
+
+    .card-corner.bottom {
+      transform: rotate(180deg);
+    }
+
+    /* Bottom Player Hand */
+    .hand-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+      height: 105px;
+      width: 100%;
+    }
+
+    .hand {
+      display: flex;
+      gap: -20px;
+      padding: 0 20px;
+    }
+
+    .hand .card {
+      margin-left: -22px;
+    }
+
+    .hand .card:first-child {
+      margin-left: 0;
+    }
+
+    /* Controls & Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: #1d2d44;
+      padding: 24px;
+      border-radius: 16px;
+      width: min(90%, 420px);
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .modal h2 {
+      color: var(--accent-color);
+      margin-bottom: 12px;
+    }
+
+    .bid-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      background: var(--accent-color);
+      color: #000;
+      border: none;
+      padding: 10px 16px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Scoreboard Table */
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.9rem;
+    }
+
+    .score-table th, .score-table td {
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px;
+      text-align: center;
+    }
+
+    .score-table th {
+      background: rgba(255,255,255,0.1);
+      color: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      ♠ Call Break <span>by Ayush</span>
+    </div>
+    <div class="status-bar" id="game-status">Initializing Game...</div>
+    <button class="btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="showScoreboard()">Scores</button>
+  </header>
+
+  <div class="table-container">
+    <!-- Player Top (Bot 2) -->
+    <div class="player-slot slot-top" id="slot-2">
+      <div class="avatar">B2</div>
+      <div class="player-info">
+        <div>Bot 2</div>
+        <div id="info-2">Call: - | Tricks: 0</div>
+      </div>
+    </div>
+
+    <!-- Player Left (Bot 1) -->
+    <div class="player-slot slot-left" id="slot-1">
+      <div class="avatar">B1</div>
+      <div class="player-info">
+        <div>Bot 1</div>
+        <div id="info-1">Call: - | Tricks: 0</div>
+      </div>
+    </div>
+
+    <!-- Player Right (Bot 3) -->
+    <div class="player-slot slot-right" id="slot-3">
+      <div class="avatar">B3</div>
+      <div class="player-info">
+        <div>Bot 3</div>
+        <div id="info-3">Call: - | Tricks: 0</div>
+      </div>
+    </div>
+
+    <!-- Player Bottom (You) -->
+    <div class="player-slot slot-bottom" id="slot-0">
+      <div class="avatar">YOU</div>
+      <div class="player-info">
+        <div>You</div>
+        <div id="info-0">Call: - | Tricks: 0</div>
+      </div>
+    </div>
+
+    <!-- Trick Center Area -->
+    <div class="trick-area" id="trick-area"></div>
+  </div>
+
+  <div class="hand-container">
+    <div class="hand" id="player-hand"></div>
+  </div>
+
+  <!-- Bidding Modal -->
+  <div class="modal-overlay" id="bid-modal">
+    <div class="modal">
+      <h2>Place Your Call</h2>
+      <p>Select the estimated number of tricks you will win (1 - 8):</p>
+      <div class="bid-options" id="bid-buttons"></div>
+    </div>
+  </div>
+
+  <!-- Scoreboard Modal -->
+  <div class="modal-overlay" id="score-modal">
+    <div class="modal">
+      <h2>Round Standings</h2>
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Call</th>
+            <th>Won</th>
+            <th>Pts</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="score-body"></tbody>
+      </table>
+      <button class="btn" id="next-round-btn" onclick="closeScoreboard()">Continue</button>
+    </div>
+  </div>
+
+  <script>
+    const SUITS = ['♠', '♥', '♦', '♣'];
+    const VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const SUIT_NAMES = { '♠': 'spades', '♥': 'hearts', '♦': 'diamonds', '♣': 'clubs' };
+
+    const players = [
+      { name: 'You', isBot: false, hand: [], bid: 0, tricks: 0, score: 0 },
+      { name: 'Bot 1', isBot: true, hand: [], bid: 0, tricks: 0, score: 0 },
+      { name: 'Bot 2', isBot: true, hand: [], bid: 0, tricks: 0, score: 0 },
+      { name: 'Bot 3', isBot: true, hand: [], bid: 0, tricks: 0, score: 0 }
+    ];
+
+    let currentRound = 1;
+    let maxRounds = 5;
+    let turnIndex = 0;
+    let currentTrick = []; // { playerIndex, card }
+    let leadSuit = null;
+    let roundLeader = 0;
+
+    function getCardValue(value) {
+      return VALUES.indexOf(value) + 2;
+    }
+
+    function createDeck() {
+      const deck = [];
+      for (let suit of SUITS) {
+        for (let value of VALUES) {
+          deck.push({ suit, value, rank: getCardValue(value) });
+        }
+      }
+      return deck;
+    }
+
+    function shuffle(deck) {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      return deck;
+    }
+
+    function startNewRound() {
+      const deck = shuffle(createDeck());
+      players.forEach((p, idx) => {
+        p.hand = deck.splice(0, 13).sort((a, b) => {
+          if (a.suit === b.suit) return a.rank - b.rank;
+          return SUITS.indexOf(a.suit) - SUITS.indexOf(b.suit);
+        });
+        p.bid = 0;
+        p.tricks = 0;
+        updatePlayerUI(idx);
+      });
+
+      currentTrick = [];
+      leadSuit = null;
+      renderHand();
+      document.getElementById('game-status').innerText = `Round ${currentRound} of ${maxRounds} - Bidding Phase`;
+      promptBidding();
+    }
+
+    function updatePlayerUI(idx) {
+      document.getElementById(`info-${idx}`).innerText = `Call: ${players[idx].bid || '-'} | Tricks: ${players[idx].tricks}`;
+    }
+
+    function promptBidding() {
+      // Simple bot bidding strategy
+      for (let i = 1; i < 4; i++) {
+        let spades = players[i].hand.filter(c => c.suit === '♠').length;
+        let highCards = players[i].hand.filter(c => c.rank >= 11).length;
+        players[i].bid = Math.max(1, Math.min(8, Math.floor(spades * 0.7 + highCards * 0.5)));
+        updatePlayerUI(i);
+      }
+
+      // User Bidding Modal
+      const bidContainer = document.getElementById('bid-buttons');
+      bidContainer.innerHTML = '';
+      for (let i = 1; i <= 8; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.innerText = i;
+        btn.onclick = () => selectBid(i);
+        bidContainer.appendChild(btn);
+      }
+      document.getElementById('bid-modal').classList.add('active');
+    }
+
+    function selectBid(amount) {
+      players[0].bid = amount;
+      updatePlayerUI(0);
+      document.getElementById('bid-modal').classList.remove('active');
+      roundLeader = (currentRound - 1) % 4;
+      turnIndex = roundLeader;
+      document.getElementById('game-status').innerText = `Round ${currentRound} - In Progress`;
+      processTurn();
+    }
+
+    function renderHand() {
+      const handEl = document.getElementById('player-hand');
+      handEl.innerHTML = '';
+
+      const isUserTurn = turnIndex === 0 && currentTrick.length < 4;
+      const validCards = isUserTurn ? getValidCards(players[0].hand) : [];
+
+      players[0].hand.forEach(card => {
+        const cardEl = document.createElement('div');
+        const isRed = card.suit === '♥' || card.suit === '♦';
+        const isValid = isUserTurn && validCards.some(c => c.suit === card.suit && c.value === card.value);
+
+        cardEl.className = `card ${isRed ? 'red' : 'black'} ${isUserTurn && !isValid ? 'disabled' : ''}`;
+        cardEl.innerHTML = `
+          <div class="card-corner top"><div>${card.value}</div><div>${card.suit}</div></div>
+          <div class="card-center-suit">${card.suit}</div>
+          <div class="card-corner bottom"><div>${card.value}</div><div>${card.suit}</div></div>
+        `;
+
+        if (isValid) {
+          cardEl.onclick = () => playCard(0, card);
+        }
+
+        handEl.appendChild(cardEl);
+      });
+    }
+
+    function getValidCards(hand) {
+      if (!leadSuit) return hand;
+      const sameSuit = hand.filter(c => c.suit === leadSuit);
+      if (sameSuit.length > 0) return sameSuit;
+      const spades = hand.filter(c => c.suit === '♠');
+      if (spades.length > 0) return spades;
+      return hand;
+    }
+
+    function processTurn() {
+      highlightActivePlayer();
+
+      if (turnIndex !== 0) {
+        setTimeout(() => {
+          const bot = players[turnIndex];
+          const valid = getValidCards(bot.hand);
+          // Pick lowest valid card as basic AI strategy
+          const chosenCard = valid.sort((a,b) => a.rank - b.rank)[0];
+          playCard(turnIndex, chosenCard);
+        }, 700);
+      } else {
+        renderHand();
+      }
+    }
+
+    function highlightActivePlayer() {
+      for (let i = 0; i < 4; i++) {
+        const slot = document.getElementById(`slot-${i}`);
+        if (i === turnIndex) {
+          slot.classList.add('active-turn');
+        } else {
+          slot.classList.remove('active-turn');
+        }
+      }
+    }
+
+    function playCard(playerIdx, card) {
+      // Remove from player hand
+      const hand = players[playerIdx].hand;
+      const cardIdx = hand.findIndex(c => c.suit === card.suit && c.value === card.value);
+      hand.splice(cardIdx, 1);
+
+      if (!leadSuit) leadSuit = card.suit;
+      currentTrick.push({ playerIndex: playerIdx, card });
+
+      renderTrickArea();
+
+      if (playerIdx === 0) renderHand();
+
+      if (currentTrick.length === 4) {
+        setTimeout(evaluateTrick, 1000);
+      } else {
+        turnIndex = (turnIndex + 1) % 4;
+        processTurn();
+      }
+    }
+
+    function renderTrickArea() {
+      const area = document.getElementById('trick-area');
+      area.innerHTML = '';
+
+      const posMap = ['played-bottom', 'played-left', 'played-top', 'played-right'];
+
+      currentTrick.forEach(item => {
+        const card = item.card;
+        const posClass = posMap[item.playerIndex];
+        const isRed = card.suit === '♥' || card.suit === '♦';
+
+        const cardEl = document.createElement('div');
+        cardEl.className = `card played-card ${posClass} ${isRed ? 'red' : 'black'}`;
+        cardEl.innerHTML = `
+          <div class="card-corner top"><div>${card.value}</div><div>${card.suit}</div></div>
+          <div class="card-center-suit">${card.suit}</div>
+        `;
+        area.appendChild(cardEl);
+      });
+    }
+
+    function evaluateTrick() {
+      let winner = currentTrick[0];
+
+      for (let i = 1; i < currentTrick.length; i++) {
+        const curr = currentTrick[i];
+        if (curr.card.suit === winner.card.suit) {
+          if (curr.card.rank > winner.card.rank) winner = curr;
+        } else if (curr.card.suit === '♠' && winner.card.suit !== '♠') {
+          winner = curr;
+        }
+      }
+
+      players[winner.playerIndex].tricks += 1;
+      updatePlayerUI(winner.playerIndex);
+
+      currentTrick = [];
+      leadSuit = null;
+      document.getElementById('trick-area').innerHTML = '';
+
+      if (players[0].hand.length === 0) {
+        endRound();
+      } else {
+        turnIndex = winner.playerIndex;
+        processTurn();
+      }
+    }
+
+    function endRound() {
+      players.forEach(p => {
+        if (p.tricks >= p.bid) {
+          p.score += p.bid + (p.tricks - p.bid) * 0.1;
+        } else {
+          p.score -= p.bid;
+        }
+        p.score = parseFloat(p.score.toFixed(1));
+      });
+
+      showScoreboard();
+    }
+
+    function showScoreboard() {
+      const tbody = document.getElementById('score-body');
+      tbody.innerHTML = '';
+
+      players.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${p.name}</td>
+          <td>${p.bid || '-'}</td>
+          <td>${p.tricks}</td>
+          <td>${p.tricks >= p.bid ? '+' + p.bid : '-' + p.bid}</td>
+          <td><strong>${p.score}</strong></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const nextBtn = document.getElementById('next-round-btn');
+      if (currentRound >= maxRounds) {
+        nextBtn.innerText = "Finish Game";
+      } else {
+        nextBtn.innerText = "Next Round";
+      }
+
+      document.getElementById('score-modal').classList.add('active');
+    }
+
+    function closeScoreboard() {
+      document.getElementById('score-modal').classList.remove('active');
+      if (players[0].hand.length === 0) {
+        if (currentRound < maxRounds) {
+          currentRound++;
+          startNewRound();
+        } else {
+          alert('Game Over! Thanks for playing Call Break by Ayush.');
+          currentRound = 1;
+          players.forEach(p => p.score = 0);
+          startNewRound();
+        }
+      }
+    }
+
+    // Initialize Game on Load
+    window.onload = startNewRound;
+  </script>
+</body>
+</html>
